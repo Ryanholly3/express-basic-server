@@ -1,0 +1,23 @@
+{
+  "name": "express-basic-server",
+  "version": "1.0.0",
+  "description": "## Objectives",
+  "main": "app.js",
+  "scripts": {
+    "start":"nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ryanholly3/express-basic-server.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ryanholly3/express-basic-server/issues"
+  },
+  "homepage": "https://github.com/Ryanholly3/express-basic-server#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
