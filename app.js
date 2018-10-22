@@ -33,10 +33,9 @@ app.get('/characters', (req, res, next) =>{
 //filter
 app.get('/characters/:id', (req, res, next) =>{
   const id = req.params.id;
-  let convertInt =parseInt(id)
-  console.log(typeof convertInt)
 
-  if(typeof convertInt !== 'number'){
+
+  if(!Number(id) || characters.length < parseInt(id)){
     next({ error: 'not found', status: 404})
   } else {
     const character = characters.filter((character) => {
