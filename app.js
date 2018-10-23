@@ -60,6 +60,32 @@ app.post('/characters', (req, res, next) =>{
 // })
 // ^ this method is flawed if index does not start at 1!!!!
 
+// PUT route
+
+app.put('/characters/:id', (req, res) =>{
+  const body = req.body;
+  const id = req.params.id;
+
+  for(let i = 0; i < characters.length; i++){
+    if(id == characters[i].id){
+      characters[i] = body;
+    }
+  }
+  res.json({ characters: characters })
+})
+
+app.delete('/characters/:id', (res, req) => {
+  const id = req.params.id;
+
+  for(let i = 0; i < characters.length; i++){
+    if(id == characters[i].id){
+      characters.splice(i, 0);
+    }
+  }
+  res.json({ characters: characters })
+})
+
+
 app.use(notFound);
 // general purpose catch all
 app.use(errorHandler);
