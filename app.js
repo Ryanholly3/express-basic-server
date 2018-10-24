@@ -74,12 +74,13 @@ app.put('/characters/:id', (req, res) =>{
   res.json({ characters: characters })
 })
 
-app.delete('/characters/:id', (res, req) => {
+app.delete('/characters/:id', (req, res) => {
   const id = req.params.id;
 
   for(let i = 0; i < characters.length; i++){
     if(id == characters[i].id){
-      characters.splice(i, 0);
+      let indexDelete = characters.indexOf(characters[i]);
+      characters.splice(indexDelete, 1);
     }
   }
   res.json({ characters: characters })
