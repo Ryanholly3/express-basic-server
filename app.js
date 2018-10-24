@@ -4,89 +4,24 @@ const port = 3000;
 const bodyParser = require('body-parser');
 
 
-//DATA
-const characters = require('./data.json');
-
+// ROUTE Middleware
+const charactersRoutes = require('./routes/characters')
 
 // General Middleware (applied to all requests)
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 
+
+//BASE ROUTE
 app.get('/', (req, res, next) =>{
   res.send('🐶')
 })
 
-app.get('/characters', (req, res, next) =>{
-  res.json({characters})
-})
-
-//loop
-// app.get('/characters/:id', (req, res, next) =>{
-//   for(let i = 0; i < characters.length; i++){
-//     let id = req.params.id;
-//     if(characters[i].id == id){
-//       res.json(characters[i])
-//     }
-//   }
-// })
-
-//filter
-app.get('/characters/:id', (req, res, next) =>{
-  const id = req.params.id;
+// ROUTE Middleware use
+app.use('/characters', charactersRoutes)
 
 
-  if(!Number(id) || characters.length < parseInt(id)){
-    next({ error: 'not found', status: 404})
-  } else {
-    const character = characters.filter((character) => {
-      return character.id == id
-    })[0];
-    res.json({character: character});
-  }
-
-})
-
-
-app.post('/characters', (req, res, next) =>{
-  //pull the data that is to be posted from request body
-  const body = req.body;
-  characters.push(body)
-
-  res.json({ characters: characters })
-})
-//alternative solution \/
-// app.get('/characters/:id', (req, res, next) =>{
-//   res.json(characters[req.params.id - 1])
-// })
-// ^ this method is flawed if index does not start at 1!!!!
-
-// PUT route
-
-app.put('/characters/:id', (req, res) =>{
-  const body = req.body;
-  const id = req.params.id;
-
-  for(let i = 0; i < characters.length; i++){
-    if(id == characters[i].id){
-      characters[i] = body;
-    }
-  }
-  res.json({ characters: characters })
-})
-
-app.delete('/characters/:id', (req, res) => {
-  const id = req.params.id;
-
-  for(let i = 0; i < characters.length; i++){
-    if(id == characters[i].id){
-      let indexDelete = characters.indexOf(characters[i]);
-      characters.splice(indexDelete, 1);
-    }
-  }
-  res.json({ characters: characters })
-})
-
-
+//ERROR HANDLING
 app.use(notFound);
 // general purpose catch all
 app.use(errorHandler);
