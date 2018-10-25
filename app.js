@@ -28,7 +28,8 @@ app.use(errorHandler);
 
 function errorHandler(err, req, res, next) {
   console.error('ERROR', err)
-  res.status(404).send({error: "not an integer"})
+  const stack = process.env.NODE_ENV !== 'production' ? err.stack : undefined
+  res.status(500).send({error: err.message, stack, url: req.originalUrl })
 }
 
 function notFound(req, res, next) {
